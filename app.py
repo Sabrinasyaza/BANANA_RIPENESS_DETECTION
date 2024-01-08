@@ -96,4 +96,4 @@ def webcam_main():
             connection.close()
 
 if __name__ == "__main__":
-    main()
+    webcam_main()

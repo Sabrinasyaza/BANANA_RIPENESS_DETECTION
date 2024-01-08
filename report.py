@@ -48,4 +48,4 @@ def report_main():
     plot_ripeness_counts(ripeness_counts)
 
 if __name__ == "__main__":
-    main()
+    report_main()
