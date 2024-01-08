@@ -67,7 +67,7 @@ def detect_ripeness(image):
     else:
         return "Overripe"
     
-def main():
+def webcam_main():
 
     connection = connect_to_database()
     st.header("Ripeness Detection System")

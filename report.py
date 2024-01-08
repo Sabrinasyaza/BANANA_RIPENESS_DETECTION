@@ -33,7 +33,7 @@ def plot_ripeness_counts(ripeness_counts):
     # Show the plot within Streamlit
     st.pyplot(fig)
 
-def main():
+def report_main():
     st.header("Banana Ripeness Report")
 
     # Fetch ripeness counts from the database

@@ -46,7 +46,7 @@ def display_image(img_bytes):
     except Exception as e:
         st.error(f"Error displaying image: {e}")
 
-def main():
+def history_main():
     st.header("Display Captured Images and Data")
     
     # Fetch all data from the database
