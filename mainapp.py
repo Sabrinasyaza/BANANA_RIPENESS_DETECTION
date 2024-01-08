@@ -3,7 +3,6 @@
 import streamlit as st
 import mysql.connector
 import numpy as np
-import cv2
 from PIL import Image
 from app import main as webcam_main
 from history import main as history_main
