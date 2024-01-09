@@ -284,6 +284,11 @@ def main():
             return
         
         logout_button() 
+        
+    print("Before import app.webcam_main")
+    from app import webcam_main
+    print("After import app.webcam_main")
+
 
     # Close the database connection when the application ends
     if connection:
