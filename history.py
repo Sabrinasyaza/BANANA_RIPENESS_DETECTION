@@ -5,11 +5,10 @@ from PIL import Image
 from io import BytesIO
 
 connection = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='banana_ripeness',
-    port='3306'
+    host="localhost",
+    user="root",
+    password="",
+    database="banana_ripeness"
 )
 cursor = connection.cursor()
 
