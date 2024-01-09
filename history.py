@@ -4,12 +4,12 @@ import mysql.connector
 from PIL import Image
 from io import BytesIO
 
-# Connect to MySQL database
 connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="banana_ripeness"
+    host='127.0.0.1',
+    user='root',
+    password='',
+    database='banana_ripeness',
+    port='3306'
 )
 cursor = connection.cursor()
 
