@@ -1,6 +1,6 @@
 streamlit
 mysql-connector-python==8.2.0
 numpy
-opencv-python==4.8.1.78
+opencv-python==4.9.0.80
 pandas
 matplotlib
