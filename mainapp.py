@@ -3,9 +3,9 @@
 import streamlit as st
 import mysql.connector
 from PIL import Image
-from app import webcam_main
 from history import history_main
 from report import report_main
+from app import webcam_main
 
 # Function to create a connection to the MySQL database
 def connect_to_database():
