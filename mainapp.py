@@ -130,13 +130,9 @@ def is_email_exists(connection, email):
     return result is not None
 
 def generate_reset_token():
-    # Implement your logic to generate a unique reset token
-    # You can use libraries like secrets or generate a unique token based on user information
     pass
 
 def send_reset_email(email, reset_token):
-    # Implement your logic to send a reset email
-    # You can use a library like smtplib or an external service for sending emails
     pass
        
 
