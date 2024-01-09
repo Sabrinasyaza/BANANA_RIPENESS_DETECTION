@@ -68,4 +68,4 @@ def history_main():
         st.write("No image found for the selected ID.")
 
 if __name__ == "__main__":
-    history_main()
+    historymain()
