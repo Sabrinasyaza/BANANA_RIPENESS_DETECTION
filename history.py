@@ -3,7 +3,6 @@ import pandas as pd
 import mysql.connector
 from PIL import Image
 from io import BytesIO
-Image.LOAD_TRUNCATED_IMAGES = True
 
 # Connect to MySQL database
 connection = mysql.connector.connect(
