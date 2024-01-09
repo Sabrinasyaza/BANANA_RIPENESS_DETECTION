@@ -30,18 +30,20 @@ def create_users_table(connection):
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL
         )
     """)
     connection.commit()
     cursor.close()
 
-# Function to insert user Sign Updata into the database
-def insert_user_data(connection, username, password):
+# Function to insert user Sign Up data into the database
+def insert_user_data(connection, username, password, email):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
+    cursor.execute("INSERT INTO users (username, password, email) VALUES (%s, %s, %s)", (username, password, email))
     connection.commit()
     cursor.close()
+
 
 # Function to check if a username already exists in the database
 def is_username_exists(connection, username):
@@ -51,36 +53,52 @@ def is_username_exists(connection, username):
     cursor.close()
     return result is not None
 
-# Function to create a Sign Upform
+# Function to create a Sign Up form with email input
 def registration_form(connection):
     st.header("Sign Up")
 
     username = st.text_input("Username")
+    email = st.text_input("Email")
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm Password", type="password")
 
     if st.button("SIGN UP"):
         if password == confirm_password:
             if not is_username_exists(connection, username):
-                insert_user_data(connection, username, password)
+                insert_user_data(connection, username, password, email)
                 st.success("Sign Up successful. Please proceed to LOGIN.")
             else:
                 st.error("Username already exists. Please choose a different username.")
         else:
             st.error("Passwords do not match. Please try again.")
 
-# Function to create a LOGIN form
 def login_form(connection):
     st.header("Login")
 
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
+    remember_me = st.checkbox("Remember Me")
+
+    forget_password = st.checkbox("Forget Password")
+
+    if forget_password:
+        forget_password_form(connection)
+        return
+
     if st.button("LOGIN"):
         if is_username_exists(connection, username):
             st.success("LOGIN successful. Welcome, {}".format(username))
-            st.session_state.logged_in = True
-            st.session_state.username = username
+
+            if remember_me:
+                # Store the username and a token in session state or secure cookie
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.session_state.remembered = True
+            else:
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.session_state.remembered = False
         else:
             st.error("Invalid username. Please try again.")
 
@@ -89,7 +107,39 @@ def logout_button():
         st.session_state.logged_in = False
         st.session_state.username = ""
         st.success("Logout successful")
-        
+
+def forget_password_form(connection):
+    st.header("Forget Password")
+
+    email = st.text_input("Email")
+
+    if st.button("SEND RESET LINK"):
+        # Check if the email exists in the database
+        if is_email_exists(connection, email):
+            # Generate a unique reset token and send it to the user's email
+            reset_token = generate_reset_token()
+            send_reset_email(email, reset_token)
+            st.success("Password reset link sent to your email. Please check your inbox.")
+        else:
+            st.error("Email not found. Please enter a valid email address.")
+
+def is_email_exists(connection, email):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+    result = cursor.fetchone()
+    cursor.close()
+    return result is not None
+
+def generate_reset_token():
+    # Implement your logic to generate a unique reset token
+    # You can use libraries like secrets or generate a unique token based on user information
+    pass
+
+def send_reset_email(email, reset_token):
+    # Implement your logic to send a reset email
+    # You can use a library like smtplib or an external service for sending emails
+    pass
+       
 
 # Main Streamlit application
 def main():
@@ -111,13 +161,15 @@ def main():
     create_users_table(connection)
 
     # Sidebar navigation
-    if not st.session_state.logged_in:
+    if not st.session_state.logged_in or (st.session_state.logged_in and not st.session_state.remembered):
+        # Show login and signup pages only if not logged in or not remembered
         page = st.sidebar.selectbox("", ["SIGN UP", "LOGIN"])
-    
+
         if page == "SIGN UP":
             registration_form(connection)
         elif page == "LOGIN":
             login_form(connection)
+
     else:
         
         # Continue with the existing pages (Dashboard, Webcam)
