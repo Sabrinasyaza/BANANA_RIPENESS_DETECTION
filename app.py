@@ -3,6 +3,7 @@ import mysql.connector
 import cv2
 import numpy as np
 from io import BytesIO
+from PIL import Image
 
 # Function to connect to the MySQL database
 def connect_to_database():
