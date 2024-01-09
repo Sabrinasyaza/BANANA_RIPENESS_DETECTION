@@ -5,7 +5,7 @@ from PIL import Image
 from io import BytesIO
 
 connection = mysql.connector.connect(
-    host='127.0.0.1',
+    host='localhost',
     user='root',
     password='',
     database='banana_ripeness',
