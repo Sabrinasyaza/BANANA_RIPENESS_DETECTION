@@ -1,7 +1,7 @@
 import streamlit as st
 import mysql.connector
-import numpy as np
 import cv2
+import numpy as np
 from io import BytesIO
 
 # Function to connect to the MySQL database
