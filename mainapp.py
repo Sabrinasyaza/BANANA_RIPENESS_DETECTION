@@ -188,7 +188,7 @@ def main():
                     based on their texture, shape, colour and size.
                 </div>
                 """
-
+                
             st.markdown(long_text, unsafe_allow_html=True)
             st.markdown("")
             st.subheader("Did you know?")
